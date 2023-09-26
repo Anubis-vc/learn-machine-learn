@@ -65,9 +65,20 @@ class KNN(BinaryClassifier):
             K = self.opts['K']         # how many NN to use
 
             val = 0                    # this is our return value: #pos - #neg of the K nearest neighbors of X
-            ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            ## CODE ADDED HERE
+            arr = []
+            i = 0
+            while i < N:
+                arr.append([linalg.norm(X - self.trX[i]), self.trY[i]])
+                i += 1
+            indices = argsort(arr, axis= 0)
 
+            j = 0
+            while j < K:
+                (norm, x) = arr[indices[j][0]]
+                val += self.trY[x]
+                j += 1
+            # ADDED CODE END
             return val
         else:
             # this is an epsilon ball model
