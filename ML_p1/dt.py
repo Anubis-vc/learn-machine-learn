@@ -66,10 +66,11 @@ class DT(BinaryClassifier):
 
         if self.isLeaf:
             return self.label
-        elif X[self.feature] >= 0.5:
-            self.right.predict(X)
-        else:
-            self.left.predict(X)
+        
+        if X[self.feature] >= 0.5:
+            return self.right.predict(X)
+        
+        return self.left.predict(X)
 
     def trainDT(self, X, Y, maxDepth, used):
         """
@@ -84,9 +85,11 @@ class DT(BinaryClassifier):
         if maxDepth <= 0 or len(util.uniq(Y)) <= 1:
             # we'd better end at this point.  need to figure
             # out the label to return
-            self.isLeaf = True
+            self.isLeaf = True    ### TODO: YOUR CODE HERE
 
-            self.label  = util.mode(Y)
+            self.label  = util.mode(Y)   ### TODO: YOUR CODE HERE
+
+
         else:
             # we need to find a feature to split on
             bestFeature = -1     # which feature has lowest error
@@ -98,15 +101,15 @@ class DT(BinaryClassifier):
 
                 # suppose we split on this feature; what labels
                 # would go left and right?
-                leftY  = Y[X[:,d]<0.5]
+                leftY  = Y[X[:,d]<0.5]   ### TODO: YOUR CODE HERE
 
-                rightY = Y[X[:,d]>=0.5]
+                rightY = Y[X[:,d]>=0.5]    ### TODO: YOUR CODE HERE
 
 
                 # we'll classify the left points as their most
                 # common class and ditto right points.  our error
                 # is the how many are not their mode.
-                error = (leftY[leftY != util.mode(leftY)]).size + (rightY[rightY != util.mode(rightY)]).size ### TODO: YOUR CODE HERE
+                error = len(leftY[leftY != util.mode(leftY)]) + len(rightY[rightY != util.mode(rightY)])  ### TODO: YOUR CODE HERE
 
 
                 # check to see if this is a better error rate
@@ -133,17 +136,13 @@ class DT(BinaryClassifier):
                 #   self.right.trainDT(...) 
                 # with appropriate arguments
                 ### TODO: YOUR CODE HERE
-                leftY = Y[X[:,bestFeature]<0.5]
-                rightY = Y[X[:,bestFeature]>=0.5]
-                leftX = X[X[:,bestFeature]<0.5,:]
-                rightX = X[X[:,bestFeature]>=0.5,:]
 
 
 
                 used.append(bestFeature)
 
-                self.left.trainDT(leftX, leftY, maxDepth-1, used)
-                self.right.trainDT(rightX, rightY, maxDepth-1, used)
+                self.left.trainDT(X[X[:,bestFeature]<0.5,:], Y[X[:,bestFeature]<0.5], maxDepth-1, used)
+                self.right.trainDT(X[X[:,bestFeature]>=0.5,:], Y[X[:,bestFeature]>=0.5], maxDepth-1, used)
 
     def train(self, X, Y):
         """

@@ -68,15 +68,17 @@ class KNN(BinaryClassifier):
             ## CODE ADDED HERE
             arr = []
             i = 0
-            while i < N:
+            while i < N: # For each training example 
+                # Find the norm of each instance w respect to X and insert label into array
                 arr.append([linalg.norm(X - self.trX[i]), self.trY[i]])
                 i += 1
+            # Find indices that sort array (those closest to X)
             indices = argsort(arr, axis= 0)
 
             j = 0
-            while j < K:
+            while j < K: # Pick the K closest elts and return output
                 (norm, x) = arr[indices[j][0]]
-                val += self.trY[x]
+                val += x
                 j += 1
             # ADDED CODE END
             return val
@@ -85,8 +87,23 @@ class KNN(BinaryClassifier):
             eps = self.opts['eps']     # how big is our epsilon ball
 
             val = 0                    # this is our return value: #pos - #neg within and epsilon ball of X
-            ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            ### ADDED CODE START
+            arr = []
+            i = 0
+            while i < N: # For each training example 
+                # Find the norm of each instance w respect to X and insert label into array
+                arr.append([linalg.norm(X - self.trX[i]), self.trY[i]])
+                i += 1
+            # Find indices that sort array (those closest to X)
+            indices = argsort(arr, axis= 0)
+
+            j = 0
+            while j < N:
+                (norm, lab) = arr[indices[j][0]]
+                if norm <= eps: # only count examples within our ball
+                    val += lab
+                j += 1
+            ## ADDED CODE END
             return val
                 
             
