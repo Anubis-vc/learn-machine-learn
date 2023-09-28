@@ -126,9 +126,14 @@ def plotData(X, Y):
     plot(X[Y>=0,0], X[Y>=0,1], 'bo',
          X[Y< 0,0], X[Y< 0,1], 'rx')
     legend( ('+1', '-1') )
-    show(False)
+    # show(False)
 
-def plotClassifier(w, b):
+def plotClassifier(X,Y,w, b):
+    plot(X[Y>=0,0], X[Y>=0,1], 'bo',
+         X[Y< 0,0], X[Y< 0,1], 'rx')
+    legend( ('+1', '-1') )
+    # show(False)
+
     axes = figure(1).get_axes()[0]
     xlim = axes.get_xlim()
     ylim = axes.get_ylim()
@@ -157,7 +162,7 @@ def plotClassifier(w, b):
         inBounds.append( (ymax_zero, ymax) )
 
     plot( array([inBounds[0][0], inBounds[1][0]]), array([inBounds[0][1], inBounds[1][1]]), 'g-', linewidth=2 )
-    show(False)
+    show()
     #print axes
     #figure(1).set_axes(axes)
     

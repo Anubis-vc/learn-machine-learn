@@ -76,7 +76,7 @@ class KNN(BinaryClassifier):
             indices = argsort(arr, axis= 0)
 
             j = 0
-            while j < K: # Pick the K closest elts and return output
+            while j < K and j < N: # Pick the K closest elts and return output
                 (norm, x) = arr[indices[j][0]]
                 val += x
                 j += 1

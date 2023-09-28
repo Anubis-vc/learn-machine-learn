@@ -1,0 +1,5 @@
+
+
+4) The data shows significant underfitting in the epsilon ball model for smaller values and 
+then converges because a large enough epsilon ball uses all instances. The K model slighty underfits
+for small values but generally decreases in overall accuracy after k = 5.

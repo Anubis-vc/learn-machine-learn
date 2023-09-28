@@ -2,6 +2,7 @@ from math import *
 import random
 from numpy import *
 import matplotlib.pyplot as plt
+import datasets
 
 waitForEnter=False
 
@@ -29,7 +30,7 @@ def computeDistances(data):
 N    = 200                   # number of examples
 Dims = [2, 8, 32, 128, 512]   # dimensionalities to try
 Cols = ['#FF0000', '#880000', '#000000', '#000088', '#0000FF']
-Bins = arange(0, 1, 0.02)
+Bins = arange(0.8, 1, 0.005)
 
 plt.xlabel('distance / sqrt(dimensionality)')
 plt.ylabel('# of pairs of points at that distance')
@@ -51,4 +52,3 @@ for i,d in enumerate(Dims):
 plt.legend(['%d dims' % d for d in Dims])
 plt.savefig('fig.pdf')
 plt.show()
-
