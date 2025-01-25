@@ -27,28 +27,29 @@ def computeDistances(data):
             dist.append( computeExampleDistance(data[n],data[m])  / sqrt(D))
     return dist
 
-N    = 200                   # number of examples
-Dims = [2, 8, 32, 128, 512]   # dimensionalities to try
-Cols = ['#FF0000', '#880000', '#000000', '#000088', '#0000FF']
-Bins = arange(0.8, 1, 0.005)
+# N    = 200                   # number of examples
+# Dims = [784]   # dimensionalities to try
+# Cols = ['#FF0000']
+# Bins = arange(0.8, 1, 0.005)
 
-plt.xlabel('distance / sqrt(dimensionality)')
-plt.ylabel('# of pairs of points at that distance')
-plt.title('dimensionality versus uniform point distances')
+# plt.xlabel('distance / sqrt(dimensionality)')
+# plt.ylabel('# of pairs of points at that distance')
+# plt.title('dimensionality versus uniform point distances')
 
-for i,d in enumerate(Dims):
-    distances = computeDistances(generateUniformDataset(d, N))
-    print("D=%d, average distance=%g" % (d, mean(distances) * sqrt(d)))
-    plt.hist(distances,
-             Bins,
-             histtype='step',
-             color=Cols[i])
-    if waitForEnter:
-        plt.legend(['%d dims' % d for d in Dims])
-        plt.show(False)
-        x = raw_input('Press enter to continue...')
+# for i,d in enumerate(Dims):
+#     distances = computeDistances(datasets.DigitData.Y)
+#     print("D=%d, average distance=%g" % (d, mean(distances) * sqrt(d)))
+#     plt.hist(distances,
+#              Bins,
+#              histtype='step',
+#              color=Cols[i])
+#     if waitForEnter:
+#         plt.legend(['%d dims' % d for d in Dims])
+#         plt.show(False)
+#         x = raw_input('Press enter to continue...')
 
 
-plt.legend(['%d dims' % d for d in Dims])
-plt.savefig('fig.pdf')
+# plt.legend(['%d dims' % d for d in Dims])
+# plt.savefig('fig.pdf')
+plt.hist(computeDistances(datasets.DigitData.X))
 plt.show()
